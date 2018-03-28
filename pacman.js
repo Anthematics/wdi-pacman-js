@@ -5,7 +5,38 @@ var lives = 2;
 
 // Define your ghosts here
 
-// replace this comment with your four ghosts setup as objects
+const Inky = {
+  menu_option = '1',
+  name = 'Inky',
+  colour = 'Red',
+  charactor = 'Shadow',
+  edible = false
+}
+
+const Blinky = {
+  menu_option = '2',
+  name = 'Blinky',
+  colour = 'Cyan',
+  charactor = 'Speedy',
+  edible = false
+
+}
+
+const Pinky = {
+  menu_option = '3',
+  name = 'Pinky',
+  color = 'Pink',
+  charactor= 'Bashful',
+  edible = false
+}
+
+const Clyde = {
+  menu_option = '4',
+  name = 'Clyde',
+  color = 'Orange',
+  charactor = 'Pokey',
+  edible = false
+}
 
 
 // Draw the screen functionality
@@ -43,7 +74,6 @@ function eatDot() {
   console.log('\nChomp!');
   score += 10;
 }
-
 
 // Process Player's Input
 function processInput(key) {
