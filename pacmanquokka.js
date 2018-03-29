@@ -5,7 +5,7 @@ const ghosts = [];
 let score = 0;
 let lives = 2;
 let powerPellets = 4;
-let ghostsLeft = ghosts.length;
+const ghostsLeft = ghosts.length;
 // Define your ghosts here
 
 const Inky = {
@@ -88,27 +88,27 @@ function eatDot() {
 }
 
 function eatGhost(ghost) {
-  if (ghost.edible === false) {
+  if (ghosts.edible === false) {
     lives -= 1;
     console.log(`${this.ghost} ate pac-man, bad ${this.ghost}`);
-    gameOver()
+    gameOver();
   } else {
     console.log(`You have eaten${ghost}CHOMP`);
     score += 200;
-    ghost.edible = false;
+    ghosts.edible = false;
   }
 }
 
-function gameOver {
-  if (lives === 0) {
-    process.exit
+function gameOver() {
+  if (lives < 0) {
+    process.exit();
   }
 }
 
 function eatPellet() {
   if (powerPellets > 0) {
     powerPellets -= 1;
-    ghost.edible = true;
+    ghosts.edible = true;
   } else {
     console.log('NO SOUP FOR YOU');
   }
