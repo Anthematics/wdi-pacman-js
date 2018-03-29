@@ -1,11 +1,11 @@
 /* eslint no-console: 0 */ // --> OFF
 /* eslint prefer-destructuring: 0 */ // --> OFF
-
+const ghosts = [];
 // Setup initial game stats
 let score = 0;
 let lives = 2;
 let powerPellets = 4;
-
+let ghostsLeft = ghosts.length;
 // Define your ghosts here
 
 const Inky = {
@@ -41,10 +41,14 @@ const Clyde = {
   edible: false,
 };
 
+ghosts.push(Inky, Blinky, Pinky, Clyde);
+ghosts;
+
 function displayStats() {
   console.log(`Score: ${score}
   Lives: ${lives}
-  powerPellets: ${powerPellets}
+  PowerPellets: ${powerPellets}
+  GhostsLeft: ${ghosts}
   `);
 }
 
@@ -83,27 +87,28 @@ function eatDot() {
   score += 10;
 }
 
-const ghosts = [];
-ghosts.push(Inky, Blinky, Pinky, Clyde);
-
 function eatGhost(ghost) {
-  if (ghosts.edible === true) {
-    console.log(`You have eaten${{ ghost }}CHOMP`);
-  } else {
+  if (ghost.edible === false) {
     lives -= 1;
-    console.log('That was a silly move Jacko');
+    console.log(`${this.ghost} ate pac-man, bad ${this.ghost}`);
+    gameOver()
+  } else {
+    console.log(`You have eaten${ghost}CHOMP`);
+    score += 200;
+    ghost.edible = false;
   }
-  elsif (lives -=0;) {
-    console.log("game over")
-    process.exit()
+}
 
+function gameOver {
+  if (lives === 0) {
+    process.exit
   }
 }
 
 function eatPellet() {
   if (powerPellets > 0) {
     powerPellets -= 1;
-    ghosts.edible = true;
+    ghost.edible = true;
   } else {
     console.log('NO SOUP FOR YOU');
   }
