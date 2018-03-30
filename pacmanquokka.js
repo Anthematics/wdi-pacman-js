@@ -1,10 +1,15 @@
 /* eslint no-console: 0 */ // --> OFF
 /* eslint prefer-destructuring: 0 */ // --> OFF
+/* eslint no-restricted-syntax: 0 */ // --> OFF
+/* eslint no-param-reassign: 0 */ // --> OFF
+/* eslint no-unused-expressions: 0 */ // --> OFF
 const ghosts = [];
 // Setup initial game stats
 let score = 0;
 let lives = 2;
 let powerPellets = 4;
+let dots = 240;
+
 const ghostsLeft = ghosts.length;
 // Define your ghosts here
 
@@ -42,13 +47,13 @@ const Clyde = {
 };
 
 ghosts.push(Inky, Blinky, Pinky, Clyde);
-ghosts;
 
 function displayStats() {
   console.log(`Score: ${score}
   Lives: ${lives}
   PowerPellets: ${powerPellets}
-  GhostsLeft: ${ghosts}
+  GhostsLeft: ${ghostsLeft}
+  Dots: ${dots}
   `);
 }
 
@@ -57,10 +62,10 @@ function displayMenu() {
   console.log('(d) Eat Dot');
   console.log('(m) Munch on a powerpellet');
   console.log('(q) Quit');
-  console.log('(1) Eat Inky');
-  console.log('(2) Eat Blinky');
-  console.log('(3) Eat Pinky');
-  console.log('(4) Eat Clyde');
+  console.log(`(1) Eat Inky ${Inky.edible}`);
+  console.log(`(2) Eat Blinky ${Blinky.edible}`);
+  console.log(`(3) Eat Pinky ${Pinky.edible}`);
+  console.log(`(4) Eat Clyde ${Clyde.edible}`);
 }
 
 function displayPrompt() {
@@ -85,19 +90,21 @@ function drawScreen() {
 function eatDot() {
   console.log('\nChomp!');
   score += 10;
+  dots - 1;
 }
 
-function eatGhost(ghost) {
-  if (ghosts.edible === false) {
-    lives -= 1;
-    console.log(`${this.ghost} ate pac-man, bad ${this.ghost}`);
-    gameOver();
-  } else {
-    console.log(`You have eaten${ghost}CHOMP`);
-    score += 200;
-    ghosts.edible = false;
-  }
+function eatTenDots() {
+  console.log('\nTENCHOMP');
+  score += 100;
+  dots - 10;
 }
+
+function eatRemainingDots() {
+  console.log('ALL CHOMP');
+  score = dots * 10;
+  dots = 0;
+}
+
 
 function gameOver() {
   if (lives < 0) {
@@ -105,16 +112,32 @@ function gameOver() {
   }
 }
 
+function eatGhost(ghost) {
+  if (ghost.edible === false) {
+    lives -= 1;
+    console.log(`   ${ghost.name} ate Pac-man, bad ${ghost.name}`);
+    gameOver();
+  } else {
+    console.log(` You have eaten${ghost.name}CHOMP`);
+    score += 200;
+    ghost.edible = false;
+  }
+}
+
 function eatPellet() {
   if (powerPellets > 0) {
     powerPellets -= 1;
-    ghosts.edible = true;
+    for (const ghost of ghosts) {
+      ghost.edible = true;
+    }
   } else {
     console.log('NO SOUP FOR YOU');
   }
 }
 
 // Process Player's Input
+// can also try eatGhost(ghosts[0]); etc
+
 function processInput(key) {
   switch (key) {
     case '\u0003': // This makes it so CTRL-C will quit the program
