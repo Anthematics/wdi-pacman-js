@@ -61,6 +61,8 @@ function displayMenu() {
   console.log('\n\nSelect Option:\n'); // each \n creates a new line
   console.log('(d) Eat Dot');
   console.log('(m) Munch on a powerpellet');
+  console.log('(e) Eat Ten Dots ');
+  console.log('(r) Eat Remaining Dots');
   console.log('(q) Quit');
   console.log(`(1) Eat Inky ${Inky.edible}`);
   console.log(`(2) Eat Blinky ${Blinky.edible}`);
@@ -90,19 +92,30 @@ function drawScreen() {
 function eatDot() {
   console.log('\nChomp!');
   score += 10;
-  dots - 1;
+  dots -= 1;
 }
 
 function eatTenDots() {
   console.log('\nTENCHOMP');
   score += 100;
-  dots - 10;
+  dots -= 10;
 }
 
 function eatRemainingDots() {
   console.log('ALL CHOMP');
   score = dots * 10;
   dots = 0;
+  nextLevel();
+}
+
+// create a function that does not allow dots to fall into
+// negatives or removes the command once the condition for it
+// is no longer met maybe a function called (checkDots?).
+
+function nextLevel() {
+  if (dots === 0 && powerPellets === 0) {
+    level += 1;
+  }
 }
 
 
@@ -146,6 +159,12 @@ function processInput(key) {
       break;
     case 'd':
       eatDot();
+      break;
+    case 'e':
+      eatTenDots();
+      break;
+    case 'r':
+      eatRemainingDots();
       break;
     case '1':
       eatGhost(Inky);
